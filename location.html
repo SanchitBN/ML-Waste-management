@@ -1,0 +1,33 @@
+<form action="/submit" method="POST">
+    <!-- Other form fields -->
+  
+    <div>
+      <label for="location" class="block font-medium text-gray-700 mb-1">Location</label>
+      <input type="text" id="location" name="location" required class="w-full border rounded p-2">
+    </div>
+  
+    <button type="submit" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+  </form>
+  
+  <script>
+    window.onload = function () {
+      const locationInput = document.getElementById('location');
+  
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const lat = position.coords.latitude.toFixed(6);
+            const lon = position.coords.longitude.toFixed(6);
+            locationInput.value = `${lat}, ${lon}`;
+          },
+          (error) => {
+            console.warn("Location access denied or unavailable.");
+            locationInput.value = "Unavailable";
+          }
+        );
+      } else {
+        locationInput.value = "Geolocation not supported";
+      }
+    };
+  </script>
+  
